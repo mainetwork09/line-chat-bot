@@ -1,0 +1,38 @@
+version: "3"
+services:
+  app:
+    container_name: node_app
+    restart: always
+    build: 
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./code:/home/node/app
+    environment:
+      - MONGO_SERVER=mongodb://mongo-db:27017
+    depends_on: 
+      - mongo-db
+  mongo-db:
+    container_name: mongo-db
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+  mongo-admin:
+    container_name: mongo-admin
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+    links:
+      - mongo-db:mongo
+    depends_on: 
+      - mongo-db
+
+
+    

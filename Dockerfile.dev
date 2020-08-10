@@ -1,0 +1,10 @@
+FROM node:10.16.3-alpine
+
+WORKDIR /home/node/app
+
+RUN apk add python make g++ libc-dev pkgconfig gcc
+RUN npm install
+
+EXPOSE 3000
+
+ENTRYPOINT [ "npm", "run", "dev"]
