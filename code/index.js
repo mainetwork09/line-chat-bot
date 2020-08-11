@@ -5,6 +5,7 @@ const dotenv = require('dotenv').config()
 const moduleContact = require('./modules/contact')
 const moduleDefault = require('./modules/default')
 const moduleWebhook = require('./modules/webhook')
+const moduleRegister = require('./modules/register')
 const moduleCustomfield = require('./modules/customfield')
 
 //const APP_HOST = process.env.APP_HOST
@@ -20,18 +21,18 @@ app.use(
   cors({
     origin: '*'
   }))
-
 app.use('', moduleDefault)
-app.use('/contact', moduleContact)
+//app.use('/contact', moduleContact)
 app.use('/webhook', moduleWebhook)
-app.use('/customfield', moduleCustomfield)
+app.use('/register', moduleRegister)
+//app.use('/customfield', moduleCustomfield)
 
-app.listen(APP_PORT, (backlog)=>{
+app.listen(APP_PORT, (backlog) => {
   console.log(backlog)
 },
-() => {
-  console.log(`App start at port ${APP_PORT}`)
-})
+  () => {
+    console.log(`App start at port ${APP_PORT}`)
+  })
 
 module.exports = app
 
